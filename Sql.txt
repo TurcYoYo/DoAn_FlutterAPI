@@ -1,0 +1,1279 @@
+-- ============================================================
+--  CAFE MANAGEMENT SYSTEM
+--  File 01: Tạo Database + Tất cả bảng
+--  DBMS: Microsoft SQL Server 2019+
+--  Tác giả: CafeSystem
+-- ============================================================
+create database CafeDB;
+USE CafeDB;
+GO
+
+-- Xoá nếu đã tồn tại (dev only)
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'CafeDB')
+BEGIN
+    ALTER DATABASE CafeDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE CafeDB;
+END
+GO
+-- ============================================================
+--  NHÓM 1: AUTH & CONFIG
+-- ============================================================
+
+CREATE TABLE Admins (
+    AdminId         INT             PRIMARY KEY IDENTITY(1,1),
+    Username        NVARCHAR(100)   NOT NULL UNIQUE,
+    PasswordHash    NVARCHAR(256)   NOT NULL,   -- BCrypt hash
+    FullName        NVARCHAR(200)   NULL,
+    IsActive        BIT             NOT NULL DEFAULT 1,
+    CreatedAt       DATETIME2       NOT NULL DEFAULT GETDATE(),
+    LastLoginAt     DATETIME2       NULL
+);
+GO
+
+CREATE TABLE Tables (
+    TableId     INT             PRIMARY KEY IDENTITY(1,1),
+    TableCode   NVARCHAR(20)    NOT NULL UNIQUE,    -- 'B01', 'B02', 'TERRACE01'
+    TableName   NVARCHAR(100)   NULL,
+    Floor       INT             NOT NULL DEFAULT 1,
+    Capacity    INT             NOT NULL DEFAULT 4,
+    IsActive    BIT             NOT NULL DEFAULT 1,
+    CreatedAt   DATETIME2       NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- Lưu cấu hình từng thiết bị tablet (thiết lập 1 lần)
+CREATE TABLE TabletConfig (
+    ConfigId    INT             PRIMARY KEY IDENTITY(1,1),
+    DeviceId    NVARCHAR(200)   NOT NULL UNIQUE,   -- Android device ID
+    Role        NVARCHAR(20)    NOT NULL            -- 'order' | 'kitchen'
+                CONSTRAINT CK_TabletConfig_Role CHECK (Role IN ('order','kitchen')),
+    TableId     INT             NULL REFERENCES Tables(TableId),  -- NULL nếu là bếp
+    SetupAt     DATETIME2       NOT NULL DEFAULT GETDATE(),
+    UpdatedAt   DATETIME2       NULL
+);
+GO
+
+-- ============================================================
+--  NHÓM 2: MENU & NGUYÊN LIỆU
+-- ============================================================
+
+CREATE TABLE Categories (
+    CategoryId  INT             PRIMARY KEY IDENTITY(1,1),
+    Name        NVARCHAR(100)   NOT NULL,
+    IconUrl     NVARCHAR(500)   NULL,
+    SortOrder   INT             NOT NULL DEFAULT 0,
+    IsActive    BIT             NOT NULL DEFAULT 1
+);
+GO
+
+CREATE TABLE MenuItems (
+    MenuItemId      INT             PRIMARY KEY IDENTITY(1,1),
+    CategoryId      INT             NOT NULL REFERENCES Categories(CategoryId),
+    Name            NVARCHAR(200)   NOT NULL,
+    Description     NVARCHAR(500)   NULL,
+    Price           DECIMAL(10,2)   NOT NULL
+                    CONSTRAINT CK_MenuItems_Price CHECK (Price >= 0),
+    ImageUrl        NVARCHAR(500)   NULL,
+    IsAvailable     BIT             NOT NULL DEFAULT 1,
+    StockQty        INT             NOT NULL DEFAULT 0,     -- số lượng có thể phục vụ hôm nay
+    SortOrder       INT             NOT NULL DEFAULT 0,
+    CreatedAt       DATETIME2       NOT NULL DEFAULT GETDATE(),
+    UpdatedAt       DATETIME2       NULL
+);
+GO
+
+CREATE TABLE Ingredients (
+    IngredientId    INT             PRIMARY KEY IDENTITY(1,1),
+    Name            NVARCHAR(200)   NOT NULL,
+    Unit            NVARCHAR(10)    NOT NULL
+                    CONSTRAINT CK_Ingredients_Unit CHECK (Unit IN ('gram','ml')),
+    CurrentStock    DECIMAL(10,2)   NOT NULL DEFAULT 0,
+    MinStock        DECIMAL(10,2)   NOT NULL DEFAULT 0,     -- ngưỡng cảnh báo sắp hết
+    CreatedAt       DATETIME2       NOT NULL DEFAULT GETDATE(),
+    UpdatedAt       DATETIME2       NULL
+);
+GO
+
+-- Công thức: 1 món cần bao nhiêu nguyên liệu
+CREATE TABLE ItemIngredients (
+    ItemIngredientId    INT             PRIMARY KEY IDENTITY(1,1),
+    MenuItemId          INT             NOT NULL REFERENCES MenuItems(MenuItemId),
+    IngredientId        INT             NOT NULL REFERENCES Ingredients(IngredientId),
+    AmountPerServing    DECIMAL(10,2)   NOT NULL
+                        CONSTRAINT CK_ItemIngredients_Amount CHECK (AmountPerServing > 0),
+    CONSTRAINT UQ_ItemIngredients UNIQUE (MenuItemId, IngredientId)
+);
+GO
+
+-- Lịch sử nhập / xuất kho
+CREATE TABLE StockTransactions (
+    TransactionId   INT             PRIMARY KEY IDENTITY(1,1),
+    IngredientId    INT             NOT NULL REFERENCES Ingredients(IngredientId),
+    TransType       NVARCHAR(10)    NOT NULL
+                    CONSTRAINT CK_StockTrans_Type CHECK (TransType IN ('in','out')),
+    Amount          DECIMAL(10,2)   NOT NULL
+                    CONSTRAINT CK_StockTrans_Amount CHECK (Amount > 0),
+    Reason          NVARCHAR(300)   NULL,    -- 'Nhập kho sáng' | 'Order #123' | 'Hao hụt'
+    OrderItemId     INT             NULL,    -- nếu xuất kho do order
+    CreatedAt       DATETIME2       NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- ============================================================
+--  NHÓM 3: ORDER & THANH TOÁN
+-- ============================================================
+
+-- Phiên ngồi (khách vào = mở session, khách về = đóng session)
+CREATE TABLE TableSessions (
+    SessionId       INT             PRIMARY KEY IDENTITY(1,1),
+    TableId         INT             NOT NULL REFERENCES Tables(TableId),
+    Status          NVARCHAR(20)    NOT NULL DEFAULT 'open'
+                    CONSTRAINT CK_Sessions_Status CHECK (Status IN ('open','closed')),
+    OpenedAt        DATETIME2       NOT NULL DEFAULT GETDATE(),
+    ClosedAt        DATETIME2       NULL
+);
+GO
+
+-- Đơn hàng (CHỈ INSERT khi ZaloPay xác nhận thành công)
+CREATE TABLE Orders (
+    OrderId             INT             PRIMARY KEY IDENTITY(1,1),
+    SessionId           INT             NOT NULL REFERENCES TableSessions(SessionId),
+    TableId             INT             NOT NULL REFERENCES Tables(TableId),
+    TableCode           NVARCHAR(20)    NOT NULL,
+    TotalAmount         DECIMAL(12,2)   NOT NULL,
+    Status              NVARCHAR(20)    NOT NULL DEFAULT 'preparing'
+                        CONSTRAINT CK_Orders_Status CHECK (Status IN ('preparing','done')),
+    ZaloPayOrderId      NVARCHAR(200)   NULL UNIQUE,   -- app_trans_id từ ZaloPay
+    Note                NVARCHAR(500)   NULL,
+    CreatedAt           DATETIME2       NOT NULL DEFAULT GETDATE(),
+    CompletedAt         DATETIME2       NULL
+);
+GO
+
+CREATE TABLE OrderItems (
+    OrderItemId     INT             PRIMARY KEY IDENTITY(1,1),
+    OrderId         INT             NOT NULL REFERENCES Orders(OrderId),
+    MenuItemId      INT             NOT NULL REFERENCES MenuItems(MenuItemId),
+    ItemName        NVARCHAR(200)   NOT NULL,   -- snapshot tên lúc order
+    UnitPrice       DECIMAL(10,2)   NOT NULL,   -- snapshot giá lúc order
+    Quantity        INT             NOT NULL    DEFAULT 1
+                    CONSTRAINT CK_OrderItems_Qty CHECK (Quantity > 0),
+    Note            NVARCHAR(300)   NULL,       -- 'ít đá', 'nhiều đường', 'không đường'
+    ItemStatus      NVARCHAR(20)    NOT NULL    DEFAULT 'pending'
+                    CONSTRAINT CK_OrderItems_Status CHECK (ItemStatus IN ('pending','done'))
+);
+GO
+
+-- Thanh toán ZaloPay
+CREATE TABLE Payments (
+    PaymentId           INT             PRIMARY KEY IDENTITY(1,1),
+    OrderId             INT             NOT NULL REFERENCES Orders(OrderId),
+    ZaloPayOrderId      NVARCHAR(200)   NULL,
+    ZaloTransId         NVARCHAR(200)   NULL,   -- zp_trans_id từ webhook
+    Amount              DECIMAL(12,2)   NOT NULL,
+    Method              NVARCHAR(20)    NOT NULL DEFAULT 'zalopay',
+    Status              NVARCHAR(20)    NOT NULL DEFAULT 'success'
+                        CONSTRAINT CK_Payments_Status CHECK (Status IN ('pending','success','failed')),
+    PaidAt              DATETIME2       NOT NULL DEFAULT GETDATE(),
+    WebhookPayload      NVARCHAR(MAX)   NULL    -- raw JSON từ ZaloPay để audit/đối soát
+);
+GO
+
+-- Hàng đợi bếp (real-time, polling mỗi 3s)
+CREATE TABLE KitchenQueue (
+    QueueId         INT             PRIMARY KEY IDENTITY(1,1),
+    OrderId         INT             NOT NULL REFERENCES Orders(OrderId),
+    OrderItemId     INT             NOT NULL REFERENCES OrderItems(OrderItemId),
+    TableCode       NVARCHAR(20)    NOT NULL,
+    ItemName        NVARCHAR(200)   NOT NULL,
+    Quantity        INT             NOT NULL,
+    Note            NVARCHAR(300)   NULL,
+    Status          NVARCHAR(20)    NOT NULL DEFAULT 'waiting'
+                    CONSTRAINT CK_KitchenQueue_Status CHECK (Status IN ('waiting','done')),
+    OrderedAt       DATETIME2       NOT NULL DEFAULT GETDATE(),
+    DoneAt          DATETIME2       NULL
+);
+GO
+
+-- ============================================================
+--  NHÓM 4: THỐNG KÊ & LOG
+-- ============================================================
+
+CREATE TABLE DailyRevenue (
+    RevenueId       INT             PRIMARY KEY IDENTITY(1,1),
+    RevenueDate     DATE            NOT NULL UNIQUE,
+    TotalOrders     INT             NOT NULL DEFAULT 0,
+    TotalAmount     DECIMAL(14,2)   NOT NULL DEFAULT 0,
+    UpdatedAt       DATETIME2       NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- Log in hóa đơn (chống in trùng)
+CREATE TABLE PrintLog (
+    PrintLogId  INT             PRIMARY KEY IDENTITY(1,1),
+    OrderId     INT             NOT NULL REFERENCES Orders(OrderId),
+    PrinterIp   NVARCHAR(50)    NULL,
+    Success     BIT             NOT NULL DEFAULT 1,
+    ErrorMsg    NVARCHAR(500)   NULL,
+    PrintedAt   DATETIME2       NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- ============================================================
+--  INDEXES
+-- ============================================================
+
+CREATE NONCLUSTERED INDEX IX_Orders_TableId_Status
+    ON Orders (TableId, Status) INCLUDE (CreatedAt, TotalAmount);
+
+CREATE NONCLUSTERED INDEX IX_Orders_ZaloPayOrderId
+    ON Orders (ZaloPayOrderId);
+
+CREATE NONCLUSTERED INDEX IX_OrderItems_OrderId
+    ON OrderItems (OrderId) INCLUDE (MenuItemId, ItemName, Quantity, ItemStatus);
+
+CREATE NONCLUSTERED INDEX IX_KitchenQueue_Status_OrderedAt
+    ON KitchenQueue (Status, OrderedAt) INCLUDE (TableCode, ItemName, Quantity);
+
+CREATE NONCLUSTERED INDEX IX_MenuItems_CategoryId_Available
+    ON MenuItems (CategoryId, IsAvailable) INCLUDE (Name, Price, ImageUrl, StockQty);
+
+CREATE NONCLUSTERED INDEX IX_StockTransactions_IngredientId
+    ON StockTransactions (IngredientId, CreatedAt DESC);
+
+CREATE NONCLUSTERED INDEX IX_DailyRevenue_Date
+    ON DailyRevenue (RevenueDate DESC);
+
+CREATE NONCLUSTERED INDEX IX_Payments_ZaloPayOrderId
+    ON Payments (ZaloPayOrderId);
+
+GO
+
+PRINT '✅ 01_CreateDatabase.sql hoàn tất.';
+
+
+Go
+-- Đăng nhập admin
+CREATE OR ALTER PROCEDURE sp_Admin_Login
+    @Username   NVARCHAR(100),
+    @ReturnHash NVARCHAR(256) OUTPUT  -- trả hash về .NET để BCrypt.Verify
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT @ReturnHash = PasswordHash
+    FROM Admins
+    WHERE Username = @Username AND IsActive = 1;
+
+    IF @ReturnHash IS NULL
+        RETURN 0;   -- không tìm thấy
+
+    UPDATE Admins SET LastLoginAt = GETDATE() WHERE Username = @Username;
+    RETURN 1;
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: TABLET CONFIG
+-- ============================================================
+
+CREATE OR ALTER PROCEDURE sp_TabletConfig_Setup
+    @DeviceId   NVARCHAR(200),
+    @Role       NVARCHAR(20),
+    @TableCode  NVARCHAR(20) = NULL   -- chỉ cần nếu Role='order'
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @TableId INT = NULL;
+
+    IF @Role = 'order'
+    BEGIN
+        SELECT @TableId = TableId FROM Tables WHERE TableCode = @TableCode AND IsActive = 1;
+        IF @TableId IS NULL
+        BEGIN
+            RAISERROR('Mã bàn không tồn tại: %s', 16, 1, @TableCode);
+            RETURN;
+        END
+    END
+
+    MERGE TabletConfig AS target
+    USING (SELECT @DeviceId AS DeviceId) AS src ON target.DeviceId = src.DeviceId
+    WHEN MATCHED THEN
+        UPDATE SET Role = @Role, TableId = @TableId, UpdatedAt = GETDATE()
+    WHEN NOT MATCHED THEN
+        INSERT (DeviceId, Role, TableId) VALUES (@DeviceId, @Role, @TableId);
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_TabletConfig_Get
+    @DeviceId NVARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT tc.ConfigId, tc.DeviceId, tc.Role, tc.TableId,
+           t.TableCode, t.TableName, tc.SetupAt
+    FROM TabletConfig tc
+    LEFT JOIN Tables t ON t.TableId = tc.TableId
+    WHERE tc.DeviceId = @DeviceId;
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: TABLE SESSION
+-- ============================================================
+
+-- Mở session khi khách vào (hoặc lấy session đang open)
+CREATE OR ALTER PROCEDURE sp_Session_OpenOrGet
+    @TableCode  NVARCHAR(20),
+    @SessionId  INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @TableId INT;
+    SELECT @TableId = TableId FROM Tables WHERE TableCode = @TableCode AND IsActive = 1;
+    IF @TableId IS NULL
+    BEGIN
+        RAISERROR('Bàn không tồn tại', 16, 1);
+        RETURN;
+    END
+
+    -- Nếu đang có session open thì dùng lại
+    SELECT @SessionId = SessionId
+    FROM TableSessions
+    WHERE TableId = @TableId AND Status = 'open';
+
+    IF @SessionId IS NULL
+    BEGIN
+        INSERT INTO TableSessions (TableId) VALUES (@TableId);
+        SET @SessionId = SCOPE_IDENTITY();
+    END
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: MENU
+-- ============================================================
+
+CREATE OR ALTER PROCEDURE sp_Menu_GetAll
+    @IncludeUnavailable BIT = 0
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT mi.MenuItemId, mi.CategoryId, c.Name AS CategoryName,
+           mi.Name, mi.Description, mi.Price, mi.ImageUrl,
+           mi.IsAvailable, mi.StockQty, mi.SortOrder
+    FROM MenuItems mi
+    INNER JOIN Categories c ON c.CategoryId = mi.CategoryId
+    WHERE c.IsActive = 1
+      AND (@IncludeUnavailable = 1 OR mi.IsAvailable = 1)
+    ORDER BY c.SortOrder, mi.SortOrder, mi.Name;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Menu_GetById
+    @MenuItemId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT mi.MenuItemId, mi.CategoryId, c.Name AS CategoryName,
+           mi.Name, mi.Description, mi.Price, mi.ImageUrl,
+           mi.IsAvailable, mi.StockQty, mi.SortOrder,
+           mi.CreatedAt, mi.UpdatedAt
+    FROM MenuItems mi
+    INNER JOIN Categories c ON c.CategoryId = mi.CategoryId
+    WHERE mi.MenuItemId = @MenuItemId;
+
+    -- Kèm nguyên liệu
+    SELECT ii.ItemIngredientId, ii.IngredientId, i.Name AS IngredientName,
+           ii.AmountPerServing, i.Unit
+    FROM ItemIngredients ii
+    INNER JOIN Ingredients i ON i.IngredientId = ii.IngredientId
+    WHERE ii.MenuItemId = @MenuItemId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Menu_Create
+    @CategoryId     INT,
+    @Name           NVARCHAR(200),
+    @Description    NVARCHAR(500) = NULL,
+    @Price          DECIMAL(10,2),
+    @ImageUrl       NVARCHAR(500) = NULL,
+    @StockQty       INT = 0,
+    @SortOrder      INT = 0,
+    @NewMenuItemId  INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO MenuItems (CategoryId, Name, Description, Price, ImageUrl, StockQty, SortOrder)
+    VALUES (@CategoryId, @Name, @Description, @Price, @ImageUrl, @StockQty, @SortOrder);
+    SET @NewMenuItemId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Menu_Update
+    @MenuItemId     INT,
+    @CategoryId     INT,
+    @Name           NVARCHAR(200),
+    @Description    NVARCHAR(500) = NULL,
+    @Price          DECIMAL(10,2),
+    @ImageUrl       NVARCHAR(500) = NULL,
+    @IsAvailable    BIT,
+    @StockQty       INT,
+    @SortOrder      INT = 0
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE MenuItems
+    SET CategoryId   = @CategoryId,
+        Name         = @Name,
+        Description  = @Description,
+        Price        = @Price,
+        ImageUrl     = @ImageUrl,
+        IsAvailable  = @IsAvailable,
+        StockQty     = @StockQty,
+        SortOrder    = @SortOrder,
+        UpdatedAt    = GETDATE()
+    WHERE MenuItemId = @MenuItemId;
+
+    IF @@ROWCOUNT = 0
+        RAISERROR('Không tìm thấy món: %d', 16, 1, @MenuItemId);
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Menu_Delete
+    @MenuItemId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    -- Soft delete: chỉ ẩn, không xoá vì đã có trong OrderItems
+    UPDATE MenuItems SET IsAvailable = 0, UpdatedAt = GETDATE()
+    WHERE MenuItemId = @MenuItemId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Menu_UpdateStock
+    @MenuItemId INT,
+    @StockQty   INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE MenuItems
+    SET StockQty    = @StockQty,
+        IsAvailable = CASE WHEN @StockQty > 0 THEN 1 ELSE 0 END,
+        UpdatedAt   = GETDATE()
+    WHERE MenuItemId = @MenuItemId;
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: NGUYÊN LIỆU
+-- ============================================================
+
+CREATE OR ALTER PROCEDURE sp_Ingredient_GetAll
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT IngredientId, Name, Unit, CurrentStock, MinStock,
+           CASE WHEN CurrentStock <= MinStock THEN 1 ELSE 0 END AS IsLow,
+           CreatedAt, UpdatedAt
+    FROM Ingredients
+    ORDER BY Name;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Ingredient_Create
+    @Name               NVARCHAR(200),
+    @Unit               NVARCHAR(10),
+    @CurrentStock       DECIMAL(10,2) = 0,
+    @MinStock           DECIMAL(10,2) = 0,
+    @NewIngredientId    INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO Ingredients (Name, Unit, CurrentStock, MinStock)
+    VALUES (@Name, @Unit, @CurrentStock, @MinStock);
+    SET @NewIngredientId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Ingredient_Update
+    @IngredientId   INT,
+    @Name           NVARCHAR(200),
+    @Unit           NVARCHAR(10),
+    @MinStock       DECIMAL(10,2)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE Ingredients
+    SET Name = @Name, Unit = @Unit, MinStock = @MinStock, UpdatedAt = GETDATE()
+    WHERE IngredientId = @IngredientId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Ingredient_AdjustStock
+    @IngredientId   INT,
+    @TransType      NVARCHAR(10),   -- 'in' | 'out'
+    @Amount         DECIMAL(10,2),
+    @Reason         NVARCHAR(300) = NULL,
+    @OrderItemId    INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        IF @TransType = 'in'
+            UPDATE Ingredients
+            SET CurrentStock = CurrentStock + @Amount, UpdatedAt = GETDATE()
+            WHERE IngredientId = @IngredientId;
+        ELSE
+        BEGIN
+            DECLARE @cur DECIMAL(10,2);
+            SELECT @cur = CurrentStock FROM Ingredients WHERE IngredientId = @IngredientId;
+
+            IF @cur < @Amount
+            BEGIN
+                ROLLBACK;
+                -- Dùng THROW với message tự build, tránh lỗi RAISERROR với DECIMAL
+                DECLARE @msg NVARCHAR(500) = CONCAT(
+                    N'Không đủ nguyên liệu (hiện có: ',
+                    CAST(@cur AS NVARCHAR(20)),
+                    N', cần: ',
+                    CAST(@Amount AS NVARCHAR(20)),
+                    N')'
+                );
+                THROW 50001, @msg, 1;
+                RETURN;
+            END
+
+            UPDATE Ingredients
+            SET CurrentStock = CurrentStock - @Amount, UpdatedAt = GETDATE()
+            WHERE IngredientId = @IngredientId;
+        END
+
+        INSERT INTO StockTransactions (IngredientId, TransType, Amount, Reason, OrderItemId)
+        VALUES (@IngredientId, @TransType, @Amount, @Reason, @OrderItemId);
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF XACT_STATE() <> 0
+            ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: ZALOPAY & ORDER
+-- ============================================================
+
+-- Tạo pending order trước khi thanh toán (để lưu ZaloPayOrderId)
+-- Trả về OrderId để ghép với ZaloPay app_trans_id
+CREATE OR ALTER PROCEDURE sp_Order_CreatePending
+    @TableCode      NVARCHAR(20),
+    @ZaloPayOrderId NVARCHAR(200),
+    @TotalAmount    DECIMAL(12,2),
+    @Note           NVARCHAR(500) = NULL,
+    @OrderId        INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @TableId INT, @SessionId INT;
+
+    SELECT @TableId = TableId FROM Tables WHERE TableCode = @TableCode AND IsActive = 1;
+    IF @TableId IS NULL
+    BEGIN
+        RAISERROR('Bàn không tồn tại', 16, 1); RETURN;
+    END
+
+    EXEC sp_Session_OpenOrGet @TableCode, @SessionId OUTPUT;
+
+    INSERT INTO Orders (SessionId, TableId, TableCode, TotalAmount, Status, ZaloPayOrderId, Note)
+    VALUES (@SessionId, @TableId, @TableCode, @TotalAmount, 'preparing', @ZaloPayOrderId, @Note);
+
+    SET @OrderId = SCOPE_IDENTITY();
+END
+GO
+
+-- Được gọi từ ZaloPay Webhook sau khi thanh toán thành công
+CREATE OR ALTER PROCEDURE sp_Order_ConfirmPayment
+    @ZaloPayOrderId     NVARCHAR(200),
+    @ZaloTransId        NVARCHAR(200),
+    @PaidAmount         DECIMAL(12,2),
+    @WebhookPayload     NVARCHAR(MAX),
+    @ItemsJson          NVARCHAR(MAX)   -- JSON: [{menuItemId,name,price,qty,note}]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        DECLARE @OrderId INT;
+        SELECT @OrderId = OrderId FROM Orders WHERE ZaloPayOrderId = @ZaloPayOrderId;
+        IF @OrderId IS NULL
+        BEGIN
+            ROLLBACK;
+            RAISERROR('Không tìm thấy order với ZaloPayOrderId: %s', 16, 1, @ZaloPayOrderId);
+            RETURN;
+        END
+
+        -- 1. Ghi payment
+        INSERT INTO Payments (OrderId, ZaloPayOrderId, ZaloTransId, Amount, Status, WebhookPayload)
+        VALUES (@OrderId, @ZaloPayOrderId, @ZaloTransId, @PaidAmount, 'success', @WebhookPayload);
+
+        -- 2. Insert OrderItems từ JSON
+        INSERT INTO OrderItems (OrderId, MenuItemId, ItemName, UnitPrice, Quantity, Note)
+        SELECT @OrderId,
+               JSON_VALUE(item.value, '$.menuItemId'),
+               JSON_VALUE(item.value, '$.name'),
+               JSON_VALUE(item.value, '$.price'),
+               JSON_VALUE(item.value, '$.qty'),
+               JSON_VALUE(item.value, '$.note')
+        FROM OPENJSON(@ItemsJson) AS item;
+
+        -- 3. Đẩy vào KitchenQueue
+        INSERT INTO KitchenQueue (OrderId, OrderItemId, TableCode, ItemName, Quantity, Note)
+        SELECT oi.OrderId, oi.OrderItemId,
+               (SELECT TableCode FROM Orders WHERE OrderId = @OrderId),
+               oi.ItemName, oi.Quantity, oi.Note
+        FROM OrderItems oi
+        WHERE oi.OrderId = @OrderId;
+
+        -- 4. Trừ kho nguyên liệu
+        INSERT INTO StockTransactions (IngredientId, TransType, Amount, Reason, OrderItemId)
+        SELECT ii.IngredientId, 'out',
+               ii.AmountPerServing * oi.Quantity,
+               CONCAT('Order #', @OrderId, ' - ', oi.ItemName),
+               oi.OrderItemId
+        FROM OrderItems oi
+        INNER JOIN ItemIngredients ii ON ii.MenuItemId = oi.MenuItemId
+        WHERE oi.OrderId = @OrderId;
+
+        UPDATE i
+        SET i.CurrentStock = i.CurrentStock - (ii.AmountPerServing * oi.Quantity),
+            i.UpdatedAt    = GETDATE()
+        FROM Ingredients i
+        INNER JOIN ItemIngredients ii ON ii.IngredientId = i.IngredientId
+        INNER JOIN OrderItems oi      ON oi.MenuItemId   = ii.MenuItemId
+        WHERE oi.OrderId = @OrderId;
+
+        -- 5. Cập nhật DailyRevenue
+        MERGE DailyRevenue AS target
+        USING (SELECT CAST(GETDATE() AS DATE) AS d) AS src ON target.RevenueDate = src.d
+        WHEN MATCHED THEN
+            UPDATE SET TotalOrders  = TotalOrders + 1,
+                       TotalAmount  = TotalAmount + @PaidAmount,
+                       UpdatedAt    = GETDATE()
+        WHEN NOT MATCHED THEN
+            INSERT (RevenueDate, TotalOrders, TotalAmount)
+            VALUES (src.d, 1, @PaidAmount);
+
+        COMMIT;
+        SELECT @OrderId AS OrderId;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK; THROW;
+    END CATCH
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: KITCHEN (Bếp)
+-- ============================================================
+
+-- Lấy danh sách đang chờ chế biến (polling mỗi 3s)
+CREATE OR ALTER PROCEDURE sp_Kitchen_GetQueue
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT kq.QueueId, kq.OrderId, kq.OrderItemId,
+           kq.TableCode, kq.ItemName, kq.Quantity, kq.Note,
+           kq.Status, kq.OrderedAt
+    FROM KitchenQueue kq
+    WHERE kq.Status = 'waiting'
+    ORDER BY kq.OrderedAt ASC;
+END
+GO
+
+-- Bếp bấm "xong" 1 món
+CREATE OR ALTER PROCEDURE sp_Kitchen_ItemDone
+    @QueueId    INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE KitchenQueue
+    SET Status = 'done', DoneAt = GETDATE()
+    WHERE QueueId = @QueueId;
+
+    DECLARE @OrderItemId INT;
+    SELECT @OrderItemId = OrderItemId FROM KitchenQueue WHERE QueueId = @QueueId;
+    UPDATE OrderItems SET ItemStatus = 'done' WHERE OrderItemId = @OrderItemId;
+END
+GO
+
+-- Bếp bấm "xong tất cả bàn" → trigger in hóa đơn + thông báo tablet
+CREATE OR ALTER PROCEDURE sp_Kitchen_OrderComplete
+    @OrderId    INT,
+    @PrinterIp  NVARCHAR(50) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        -- Đánh dấu tất cả queue items là done
+        UPDATE KitchenQueue
+        SET Status = 'done', DoneAt = GETDATE()
+        WHERE OrderId = @OrderId AND Status = 'waiting';
+
+        UPDATE OrderItems SET ItemStatus = 'done'
+        WHERE OrderId = @OrderId AND ItemStatus = 'pending';
+
+        -- Cập nhật Order status
+        UPDATE Orders
+        SET Status = 'done', CompletedAt = GETDATE()
+        WHERE OrderId = @OrderId;
+
+        -- Ghi log in (backend sẽ đọc record này để thực sự in)
+        -- Kiểm tra chưa in trước
+        IF NOT EXISTS (SELECT 1 FROM PrintLog WHERE OrderId = @OrderId AND Success = 1)
+        BEGIN
+            INSERT INTO PrintLog (OrderId, PrinterIp, Success)
+            VALUES (@OrderId, @PrinterIp, 0);  -- Success=0: chờ backend in thật rồi update
+        END
+
+        COMMIT;
+
+        -- Trả về thông tin để backend in
+        SELECT o.OrderId, o.TableCode, o.TotalAmount, o.CreatedAt,
+               o.CompletedAt, o.Note,
+               oi.ItemName, oi.Quantity, oi.UnitPrice, oi.Note AS ItemNote
+        FROM Orders o
+        INNER JOIN OrderItems oi ON oi.OrderId = o.OrderId
+        WHERE o.OrderId = @OrderId;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK; THROW;
+    END CATCH
+END
+GO
+
+-- Cập nhật trạng thái in
+CREATE OR ALTER PROCEDURE sp_PrintLog_MarkSuccess
+    @OrderId    INT,
+    @PrinterIp  NVARCHAR(50)
+AS
+BEGIN
+    UPDATE PrintLog
+    SET Success = 1, PrinterIp = @PrinterIp, PrintedAt = GETDATE()
+    WHERE OrderId = @OrderId AND Success = 0;
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: THỐNG KÊ
+-- ============================================================
+
+CREATE OR ALTER PROCEDURE sp_Stats_Revenue
+    @Period     NVARCHAR(10),   -- 'daily' | 'monthly' | 'yearly'
+    @FromDate   DATE = NULL,
+    @ToDate     DATE = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET @FromDate = ISNULL(@FromDate, CAST(GETDATE() AS DATE));
+    SET @ToDate   = ISNULL(@ToDate,   CAST(GETDATE() AS DATE));
+
+    IF @Period = 'daily'
+        SELECT RevenueDate AS Period,
+               TotalOrders, TotalAmount
+        FROM DailyRevenue
+        WHERE RevenueDate BETWEEN @FromDate AND @ToDate
+        ORDER BY RevenueDate;
+
+    ELSE IF @Period = 'monthly'
+        SELECT FORMAT(RevenueDate, 'yyyy-MM') AS Period,
+               SUM(TotalOrders) AS TotalOrders,
+               SUM(TotalAmount) AS TotalAmount
+        FROM DailyRevenue
+        WHERE RevenueDate BETWEEN @FromDate AND @ToDate
+        GROUP BY FORMAT(RevenueDate, 'yyyy-MM')
+        ORDER BY Period;
+
+    ELSE IF @Period = 'yearly'
+        SELECT YEAR(RevenueDate) AS Period,
+               SUM(TotalOrders) AS TotalOrders,
+               SUM(TotalAmount) AS TotalAmount
+        FROM DailyRevenue
+        WHERE RevenueDate BETWEEN @FromDate AND @ToDate
+        GROUP BY YEAR(RevenueDate)
+        ORDER BY Period;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Stats_PopularItems
+    @Month  INT,
+    @Year   INT,
+    @TopN   INT = 10
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT TOP (@TopN)
+           oi.MenuItemId,
+           oi.ItemName,
+           SUM(oi.Quantity)                         AS TotalQty,
+           SUM(oi.Quantity * oi.UnitPrice)           AS TotalRevenue,
+           COUNT(DISTINCT oi.OrderId)                AS TotalOrders
+    FROM OrderItems oi
+    INNER JOIN Orders o ON o.OrderId = oi.OrderId
+    WHERE MONTH(o.CreatedAt) = @Month
+      AND YEAR(o.CreatedAt)  = @Year
+      AND o.Status = 'done'
+    GROUP BY oi.MenuItemId, oi.ItemName
+    ORDER BY TotalQty DESC;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Stats_LowStock
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT IngredientId, Name, Unit, CurrentStock, MinStock,
+           CurrentStock - MinStock AS Deficit
+    FROM Ingredients
+    WHERE CurrentStock <= MinStock
+    ORDER BY (CurrentStock - MinStock) ASC;
+END
+GO
+
+-- ============================================================
+--  SP NHÓM: TABLES (quản lý bàn)
+-- ============================================================
+
+CREATE OR ALTER PROCEDURE sp_Table_GetAll
+AS
+BEGIN
+    SELECT t.TableId, t.TableCode, t.TableName, t.Floor, t.Capacity, t.IsActive,
+           ts.Status AS SessionStatus,
+           (SELECT COUNT(*) FROM Orders o WHERE o.TableId = t.TableId
+            AND o.Status = 'preparing') AS ActiveOrders
+    FROM Tables t
+    LEFT JOIN TableSessions ts ON ts.TableId = t.TableId AND ts.Status = 'open'
+    ORDER BY t.Floor, t.TableCode;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Table_Create
+    @TableCode  NVARCHAR(20),
+    @TableName  NVARCHAR(100) = NULL,
+    @Floor      INT = 1,
+    @Capacity   INT = 4
+AS
+BEGIN
+    INSERT INTO Tables (TableCode, TableName, Floor, Capacity)
+    VALUES (@TableCode, @TableName, @Floor, @Capacity);
+    SELECT SCOPE_IDENTITY() AS TableId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Table_Update
+    @TableId    INT,
+    @TableCode  NVARCHAR(20),
+    @TableName  NVARCHAR(100) = NULL,
+    @Floor      INT,
+    @Capacity   INT,
+    @IsActive   BIT
+AS
+BEGIN
+    UPDATE Tables
+    SET TableCode = @TableCode, TableName = @TableName,
+        Floor = @Floor, Capacity = @Capacity, IsActive = @IsActive
+    WHERE TableId = @TableId;
+END
+GO
+
+GO
+PRINT '✅ 02_StoredProcedures.sql hoàn tất.';
+-- ============================================================
+--  CAFE MANAGEMENT SYSTEM
+--  File 03: Seed Data (dữ liệu mẫu thực tế)
+--  Chạy sau 02_StoredProcedures.sql
+-- ============================================================
+GO
+
+-- ============================================================
+--  ADMIN (BCrypt hash của 'Admin@123')
+-- ============================================================
+INSERT INTO Admins (Username, PasswordHash, FullName) VALUES
+('admin', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/lewdBDHMt1vG1Y2Gy', 'Quản lý quán');
+GO
+
+-- ============================================================
+--  BÀNCAFÉ (2 tầng, 12 bàn)
+-- ============================================================
+INSERT INTO Tables (TableCode, TableName, Floor, Capacity) VALUES
+('B01', 'Bàn 01', 1, 4), ('B02', 'Bàn 02', 1, 4),
+('B03', 'Bàn 03', 1, 4), ('B04', 'Bàn 04', 1, 2),
+('B05', 'Bàn 05', 1, 2), ('B06', 'Bàn 06', 1, 6),
+('B07', 'Bàn 07 - Sân vườn', 1, 4), ('B08', 'Bàn 08 - Sân vườn', 1, 4),
+('B09', 'Bàn 09 - Lầu 1', 2, 4), ('B10', 'Bàn 10 - Lầu 1', 2, 4),
+('B11', 'Bàn 11 - Lầu 1', 2, 2), ('B12', 'Bàn 12 - VIP', 2, 8);
+GO
+
+-- ============================================================
+--  DANH MỤC (thứ tự: đồ uống trước, ăn sau)
+-- ============================================================
+INSERT INTO Categories (Name, SortOrder) VALUES
+('Cà phê',          1),
+('Trà - Trái cây',  2),
+('Sinh tố - Đá xay',3),
+('Nước ép',         4),
+('Đồ ăn nhẹ',       5),
+('Bánh ngọt',       6);
+GO
+
+-- ============================================================
+--  MENU (32 món)
+-- ============================================================
+-- Cà phê (CategoryId = 1)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(1, 'Cà phê đen',       'Cà phê phin truyền thống',                29000, 50, 1),
+(1, 'Cà phê sữa',       'Cà phê phin + sữa đặc',                   35000, 50, 2),
+(1, 'Bạc xỉu',          'Cà phê sữa nhiều sữa ít cà phê',           35000, 50, 3),
+(1, 'Americano',        'Espresso + nước nóng',                     39000, 40, 4),
+(1, 'Cappuccino',       'Espresso + sữa tươi + foam',               49000, 40, 5),
+(1, 'Latte',            'Espresso + sữa tươi ít foam',              49000, 40, 6),
+(1, 'Mocha',            'Espresso + chocolate + sữa',               55000, 40, 7),
+(1, 'Cold brew',        'Cà phê ủ lạnh 12 giờ',                    55000, 30, 8),
+(1, 'Bạc xỉu đá',       'Bạc xỉu + đá viên',                       39000, 50, 9),
+(1, 'Cà phê muối',      'Cà phê + kem muối handcrafted',            55000, 30, 10);
+
+-- Trà - Trái cây (CategoryId = 2)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(2, 'Trà đào cam sả',   'Trà hoa quả đào + cam + sả tươi',         45000, 40, 1),
+(2, 'Trà vải',          'Trà xanh + vải tươi',                      45000, 40, 2),
+(2, 'Trà chanh mật ong','Trà xanh + chanh + mật ong',               39000, 50, 3),
+(2, 'Trà ô long sữa',   'Trà ô long + sữa tươi + trân châu',        55000, 35, 4),
+(2, 'Matcha latte',     'Matcha Nhật + sữa tươi',                   55000, 30, 5),
+(2, 'Trà gừng mật ong', 'Trà gừng ấm + mật ong nguyên chất',        39000, 30, 6);
+
+-- Sinh tố - Đá xay (CategoryId = 3)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(3, 'Đá xay caramel',   'Cà phê + caramel + kem whipping',          65000, 25, 1),
+(3, 'Đá xay mocha',     'Cà phê + chocolate + kem',                 65000, 25, 2),
+(3, 'Sinh tố bơ',       'Bơ + sữa tươi + mật ong',                  55000, 20, 3),
+(3, 'Sinh tố dâu',      'Dâu tươi + sữa chua + sữa tươi',           55000, 20, 4),
+(3, 'Sinh tố xoài',     'Xoài cát Hoà Lộc + sữa tươi',              55000, 20, 5);
+
+-- Nước ép (CategoryId = 4)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(4, 'Nước ép cam',      'Cam tươi nguyên chất',                     45000, 30, 1),
+(4, 'Nước ép dưa hấu',  'Dưa hấu tươi không đường',                  39000, 30, 2),
+(4, 'Nước ép táo gừng', 'Táo + gừng + chanh tươi',                  45000, 25, 3);
+
+-- Đồ ăn nhẹ (CategoryId = 5)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(5, 'Bánh mì sandwich', 'Bánh mì gối + trứng + rau xà lách',        35000, 20, 1),
+(5, 'Bánh mì bơ tỏi',   'Bánh mì baguette + bơ tỏi nướng',          29000, 20, 2),
+(5, 'Khoai tây chiên',  'Khoai tây cắt que chiên giòn + sốt',        39000, 15, 3),
+(5, 'Bánh tráng trộn',  'Bánh tráng + xoài + rau + tương',           35000, 15, 4);
+
+-- Bánh ngọt (CategoryId = 6)
+INSERT INTO MenuItems (CategoryId, Name, Description, Price, StockQty, SortOrder) VALUES
+(6, 'Bánh tiramisu',    'Bánh tiramisu Ý truyền thống',              55000, 10, 1),
+(6, 'Bánh brownie',     'Bánh socola đậm vị + hạt óc chó',           45000, 10, 2),
+(6, 'Croissant bơ',     'Croissant bơ Pháp nhập khẩu',               35000, 15, 3),
+(6, 'Cheesecake NYC',   'Cheesecake New York Style',                  65000, 8,  4);
+GO
+
+-- ============================================================
+--  NGUYÊN LIỆU
+-- ============================================================
+INSERT INTO Ingredients (Name, Unit, CurrentStock, MinStock) VALUES
+('Hạt cà phê Robusta',  'gram', 5000, 500),
+('Hạt cà phê Arabica',  'gram', 3000, 300),
+('Sữa tươi không đường','ml',   10000, 1000),
+('Sữa đặc có đường',    'ml',   5000,  500),
+('Đường trắng',         'gram', 5000,  300),
+('Matcha bột',          'gram', 500,   50),
+('Trà ô long',          'gram', 1000,  100),
+('Trà đào hương',       'gram', 800,   100),
+('Bột chocolate',       'gram', 2000,  200),
+('Kem whipping',        'ml',   3000,  300),
+('Caramel sốt',         'ml',   1000,  100),
+('Cam tươi',            'gram', 5000,  500),
+('Dâu tươi',            'gram', 2000,  200),
+('Bơ trái',             'gram', 3000,  300),
+('Xoài cát',            'gram', 3000,  200),
+('Gừng tươi',           'gram', 1000,  100),
+('Mật ong',             'ml',   500,   50),
+('Chanh tươi',          'gram', 2000,  200),
+('Muối hồng Himalaya',  'gram', 200,   20),
+('Kem tươi muối',       'ml',   500,   50);
+GO
+
+-- ============================================================
+--  CÔNG THỨC MÓN (ItemIngredients)
+-- ============================================================
+-- Cà phê đen (MenuItemId=1): 20g Robusta
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(1, 1, 20);  -- Robusta
+
+-- Cà phê sữa (MenuItemId=2)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(2, 1, 20),  -- Robusta
+(2, 4, 30);  -- Sữa đặc
+
+-- Bạc xỉu (MenuItemId=3)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(3, 1, 10),  -- Robusta ít hơn
+(3, 4, 50);  -- Sữa đặc nhiều hơn
+
+-- Americano (MenuItemId=4)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(4, 2, 18);  -- Arabica
+
+-- Cappuccino (MenuItemId=5)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(5, 2, 18),   -- Arabica
+(5, 3, 100);  -- Sữa tươi
+
+-- Latte (MenuItemId=6)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(6, 2, 18),   -- Arabica
+(6, 3, 150);  -- Sữa tươi
+
+-- Mocha (MenuItemId=7)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(7, 2, 18),   -- Arabica
+(7, 3, 100),  -- Sữa tươi
+(7, 9, 20);   -- Bột chocolate
+
+-- Cold brew (MenuItemId=8)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(8, 2, 30);   -- Arabica nhiều hơn do ủ lạnh
+
+-- Bạc xỉu đá (MenuItemId=9)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(9, 1, 10),
+(9, 4, 50);
+
+-- Cà phê muối (MenuItemId=10)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(10, 1, 20),   -- Robusta
+(10, 10, 50),  -- Kem whipping
+(10, 19, 2);   -- Muối hồng
+
+-- Matcha latte (MenuItemId=15)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(15, 6, 10),   -- Matcha bột
+(15, 3, 150);  -- Sữa tươi
+
+-- Đá xay caramel (MenuItemId=17)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(17, 2, 18),   -- Arabica
+(17, 11, 30),  -- Caramel sốt
+(17, 10, 60),  -- Kem whipping
+(17, 3, 100);  -- Sữa tươi
+
+-- Sinh tố bơ (MenuItemId=19)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(19, 14, 150), -- Bơ trái
+(19, 3, 100),  -- Sữa tươi
+(19, 17, 20);  -- Mật ong
+
+-- Nước ép cam (MenuItemId=22)
+INSERT INTO ItemIngredients (MenuItemId, IngredientId, AmountPerServing) VALUES
+(22, 12, 300); -- Cam tươi
+
+GO
+
+-- ============================================================
+--  DỮ LIỆU MẪU: 1 ORDER HOÀN CHỈNH (để test)
+-- ============================================================
+
+-- Mở session bàn B01
+INSERT INTO TableSessions (TableId, Status) VALUES (1, 'closed');  -- session cũ đã đóng
+INSERT INTO TableSessions (TableId, Status) VALUES (1, 'open');    -- session hiện tại (SessionId=2)
+
+-- Order đã thanh toán
+INSERT INTO Orders (SessionId, TableId, TableCode, TotalAmount, Status, ZaloPayOrderId, CreatedAt, CompletedAt)
+VALUES (2, 1, 'B01', 128000, 'done', 'CAFE20250101_001', DATEADD(HOUR,-1,GETDATE()), DATEADD(MINUTE,-30,GETDATE()));
+
+-- OrderItems
+INSERT INTO OrderItems (OrderId, MenuItemId, ItemName, UnitPrice, Quantity, Note, ItemStatus) VALUES
+(1, 6,  'Latte',         49000, 1, 'ít đường',    'done'),
+(1, 10, 'Cà phê muối',   55000, 1, NULL,           'done'),
+(1, 27, 'Khoai tây chiên',39000, 1, 'thêm sốt cay','done');
+
+-- Payment
+INSERT INTO Payments (OrderId, ZaloPayOrderId, ZaloTransId, Amount, Status, WebhookPayload) VALUES
+(1, 'CAFE20250101_001', 'ZALOPAY_TRANS_12345', 128000, 'success',
+ '{"return_code":1,"return_message":"Success","zp_trans_id":"ZALOPAY_TRANS_12345","amount":128000}');
+
+-- PrintLog (đã in)
+INSERT INTO PrintLog (OrderId, PrinterIp, Success) VALUES (1, '192.168.1.100', 1);
+
+-- DailyRevenue hôm nay
+INSERT INTO DailyRevenue (RevenueDate, TotalOrders, TotalAmount)
+VALUES (CAST(GETDATE() AS DATE), 1, 128000);
+
+GO
+
+PRINT '✅ 03_SeedData.sql hoàn tất.';
+PRINT '   Admin: admin / Admin@123';
+PRINT '   12 bàn, 32 món, 20 nguyên liệu, 1 order mẫu.';
+-- ============================================================
+--  CAFE MANAGEMENT SYSTEM
+--  File 04: Views + Query hữu ích
+--  Chạy sau 03_SeedData.sql
+-- ============================================================
+
+GO
+
+-- ============================================================
+--  VIEWS
+-- ============================================================
+
+-- View: trạng thái bàn hiện tại
+CREATE OR ALTER VIEW vw_TableStatus AS
+SELECT
+    t.TableId,
+    t.TableCode,
+    t.TableName,
+    t.Floor,
+    t.Capacity,
+    CASE
+        WHEN ts.SessionId IS NULL THEN 'empty'
+        WHEN o.OrderId IS NOT NULL THEN 'ordering'
+        ELSE 'seated'
+    END AS Status,
+    ts.SessionId,
+    ts.OpenedAt AS SessionStart,
+    COUNT(DISTINCT o.OrderId)       AS TotalOrders,
+    ISNULL(SUM(o.TotalAmount), 0)   AS TotalSpent
+FROM Tables t
+LEFT JOIN TableSessions ts  ON ts.TableId = t.TableId AND ts.Status = 'open'
+LEFT JOIN Orders o          ON o.SessionId = ts.SessionId
+GROUP BY t.TableId, t.TableCode, t.TableName, t.Floor, t.Capacity,
+         ts.SessionId, ts.OpenedAt, o.OrderId;
+GO
+
+-- View: hàng đợi bếp đầy đủ thông tin
+CREATE OR ALTER VIEW vw_KitchenQueue AS
+SELECT
+    kq.QueueId,
+    kq.OrderId,
+    kq.TableCode,
+    kq.ItemName,
+    kq.Quantity,
+    kq.Note,
+    kq.Status,
+    kq.OrderedAt,
+    kq.DoneAt,
+    DATEDIFF(MINUTE, kq.OrderedAt, GETDATE()) AS WaitingMinutes
+FROM KitchenQueue kq
+WHERE kq.Status = 'waiting';
+GO
+
+-- View: doanh thu tháng này theo ngày
+CREATE OR ALTER VIEW vw_RevenueThisMonth AS
+SELECT
+    RevenueDate,
+    TotalOrders,
+    TotalAmount,
+    SUM(TotalAmount) OVER (
+        PARTITION BY YEAR(RevenueDate), MONTH(RevenueDate)
+        ORDER BY RevenueDate
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS CumulativeAmount
+FROM DailyRevenue
+WHERE MONTH(RevenueDate) = MONTH(GETDATE())
+  AND YEAR(RevenueDate)  = YEAR(GETDATE());
+GO
+
+-- View: nguyên liệu sắp hết
+CREATE OR ALTER VIEW vw_LowStockIngredients AS
+SELECT
+    IngredientId,
+    Name,
+    Unit,
+    CurrentStock,
+    MinStock,
+    MinStock - CurrentStock AS Deficit,
+    CASE
+        WHEN CurrentStock = 0 THEN 'out_of_stock'
+        WHEN CurrentStock <= MinStock THEN 'low'
+        ELSE 'ok'
+    END AS StockStatus
+FROM Ingredients
+WHERE CurrentStock <= MinStock;
+GO
+
+-- View: menu kèm trạng thái nguyên liệu
+CREATE OR ALTER VIEW vw_MenuWithStock AS
+SELECT
+    mi.MenuItemId,
+    mi.Name,
+    mi.Price,
+    mi.StockQty,
+    mi.IsAvailable,
+    c.Name AS CategoryName,
+    -- Số lượng có thể làm theo nguyên liệu
+    ISNULL(
+        MIN(FLOOR(i.CurrentStock / NULLIF(ii.AmountPerServing, 0))),
+        mi.StockQty
+    ) AS MaxServableByIngredients
+FROM MenuItems mi
+INNER JOIN Categories c ON c.CategoryId = mi.CategoryId
+LEFT JOIN ItemIngredients ii ON ii.MenuItemId = mi.MenuItemId
+LEFT JOIN Ingredients i ON i.IngredientId = ii.IngredientId
+GROUP BY mi.MenuItemId, mi.Name, mi.Price, mi.StockQty, mi.IsAvailable, c.Name;
+GO
+
+-- ============================================================
+--  QUERY MẪU HỮU ÍCH (comment, dùng khi cần)
+-- ============================================================
+
+/*
+-- Q1: Top 5 món bán chạy nhất tháng này
+SELECT TOP 5
+    oi.ItemName,
+    SUM(oi.Quantity) AS TotalSold,
+    SUM(oi.Quantity * oi.UnitPrice) AS Revenue
+FROM OrderItems oi
+INNER JOIN Orders o ON o.OrderId = oi.OrderId
+WHERE MONTH(o.CreatedAt) = MONTH(GETDATE())
+  AND YEAR(o.CreatedAt) = YEAR(GETDATE())
+  AND o.Status = 'done'
+GROUP BY oi.ItemName
+ORDER BY TotalSold DESC;
+
+-- Q2: Tổng doanh thu hôm nay
+SELECT ISNULL(SUM(TotalAmount), 0) AS TodayRevenue,
+       ISNULL(SUM(TotalOrders), 0) AS TodayOrders
+FROM DailyRevenue
+WHERE RevenueDate = CAST(GETDATE() AS DATE);
+
+-- Q3: Order chưa xong sau 15 phút
+SELECT o.OrderId, o.TableCode, o.CreatedAt,
+       DATEDIFF(MINUTE, o.CreatedAt, GETDATE()) AS MinutesWaiting
+FROM Orders o
+WHERE o.Status = 'preparing'
+  AND DATEDIFF(MINUTE, o.CreatedAt, GETDATE()) > 15
+ORDER BY o.CreatedAt;
+
+-- Q4: Kiểm tra nguyên liệu sắp hết
+SELECT * FROM vw_LowStockIngredients;
+
+-- Q5: Trạng thái tất cả bàn
+SELECT * FROM vw_TableStatus ORDER BY Floor, TableCode;
+
+-- Q6: Doanh thu 7 ngày gần nhất
+SELECT RevenueDate, TotalOrders, TotalAmount
+FROM DailyRevenue
+WHERE RevenueDate >= DATEADD(DAY, -7, CAST(GETDATE() AS DATE))
+ORDER BY RevenueDate;
+*/
+
+GO
+PRINT '✅ 04_ViewsAndQueries.sql hoàn tất.';
+
+ALTER TABLE Orders ADD CustomerEmail NVARCHAR(255) NULL;
