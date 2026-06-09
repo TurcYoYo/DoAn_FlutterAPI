@@ -1,0 +1,1111 @@
+[
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "GetAdmins",
+    "RelativePath": "api/Admins",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.AdminDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "PostAdmin",
+    "RelativePath": "api/Admins",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createDto",
+        "Type": "DoAnFlutterAPI.DTOs.AdminCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.AdminDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "GetAdmin",
+    "RelativePath": "api/Admins/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.AdminDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "PutAdmin",
+    "RelativePath": "api/Admins/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateDto",
+        "Type": "DoAnFlutterAPI.DTOs.AdminUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.AdminDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "DeleteAdmin",
+    "RelativePath": "api/Admins/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.AdminsController",
+    "Method": "Login",
+    "RelativePath": "api/Admins/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "DoAnFlutterAPI.DTOs.AdminLoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.AdminDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.CategoriesController",
+    "Method": "GetCategories",
+    "RelativePath": "api/Categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.CategoryDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.CategoriesController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/Categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.CategoryCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.CategoryDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.CategoriesController",
+    "Method": "GetCategory",
+    "RelativePath": "api/Categories/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.CategoryDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.CategoriesController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/Categories/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.CategoryCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.CategoryDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.CategoriesController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/Categories/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.IngredientsController",
+    "Method": "GetIngredients",
+    "RelativePath": "api/Ingredients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.IngredientDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.IngredientsController",
+    "Method": "GetLowStockIngredients",
+    "RelativePath": "api/Ingredients/low-stock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.IngredientDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ItemIngredientsController",
+    "Method": "PostItemIngredient",
+    "RelativePath": "api/ItemIngredients",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createDto",
+        "Type": "DoAnFlutterAPI.DTOs.ItemIngredientCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.ItemIngredientDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ItemIngredientsController",
+    "Method": "DeleteItemIngredient",
+    "RelativePath": "api/ItemIngredients/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ItemIngredientsController",
+    "Method": "GetIngredientsByMenuItem",
+    "RelativePath": "api/ItemIngredients/menuitem/{menuItemId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "menuItemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.ItemIngredientDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.KitchenController",
+    "Method": "GetQueue",
+    "RelativePath": "api/Kitchen/queue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.KitchenQueueDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.KitchenController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/Kitchen/status/{queueId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "queueId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "GetMenuItems",
+    "RelativePath": "api/MenuItems",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.MenuItemDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "CreateMenuItem",
+    "RelativePath": "api/MenuItems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.MenuItemCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.MenuItemDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "GetMenuItem",
+    "RelativePath": "api/MenuItems/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.MenuItemDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "UpdateMenuItem",
+    "RelativePath": "api/MenuItems/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.MenuItemCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.MenuItemDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "DeleteMenuItem",
+    "RelativePath": "api/MenuItems/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.MenuItemsController",
+    "Method": "GetMenuItemsByCategory",
+    "RelativePath": "api/MenuItems/category/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.MenuItemDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.OrdersController",
+    "Method": "PostOrder",
+    "RelativePath": "api/Orders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.OrderCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.OrderResponseDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.OrdersController",
+    "Method": "GetOrder",
+    "RelativePath": "api/Orders/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.OrderResponseDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.OrdersController",
+    "Method": "GetOrdersBySession",
+    "RelativePath": "api/Orders/session/{sessionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sessionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.OrderResponseDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.PaymentsController",
+    "Method": "CreatePayment",
+    "RelativePath": "api/Payments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.PaymentCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.PaymentDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.PrintLogsController",
+    "Method": "PostPrintLog",
+    "RelativePath": "api/PrintLogs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "logDto",
+        "Type": "DoAnFlutterAPI.DTOs.PrintLogDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.PrintLogDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.PrintLogsController",
+    "Method": "GetPrintLogsByOrder",
+    "RelativePath": "api/PrintLogs/order/{orderId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.PrintLogDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ReportsController",
+    "Method": "GetDailyRevenue",
+    "RelativePath": "api/Reports/revenue/daily",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.RevenueDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ReportsController",
+    "Method": "GetMonthlyRevenue",
+    "RelativePath": "api/Reports/revenue/monthly",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.RevenueDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.ReportsController",
+    "Method": "GetReportSummary",
+    "RelativePath": "api/Reports/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "from",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "to",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.ReportSummaryDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.StockTransactionsController",
+    "Method": "CreateTransaction",
+    "RelativePath": "api/stock/transaction",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.StockTransactionCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.StockTransactionDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TablesController",
+    "Method": "GetTables",
+    "RelativePath": "api/Tables",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.TableStatusDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TablesController",
+    "Method": "CreateTable",
+    "RelativePath": "api/Tables",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.TableDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.TableDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TablesController",
+    "Method": "GetTable",
+    "RelativePath": "api/Tables/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.TableDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TablesController",
+    "Method": "UpdateTable",
+    "RelativePath": "api/Tables/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.TableDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.TableDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TableSessionsController",
+    "Method": "CloseSession",
+    "RelativePath": "api/TableSessions/close/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.SessionDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TableSessionsController",
+    "Method": "OpenSession",
+    "RelativePath": "api/TableSessions/open",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DoAnFlutterAPI.DTOs.SessionCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.SessionDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TabletConfigsController",
+    "Method": "GetTabletConfigs",
+    "RelativePath": "api/TabletConfigs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.DTOs.TabletConfigDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TabletConfigsController",
+    "Method": "GetTabletConfigByDevice",
+    "RelativePath": "api/TabletConfigs/device/{deviceId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "deviceId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.TabletConfigDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.TabletConfigsController",
+    "Method": "SetupDevice",
+    "RelativePath": "api/TabletConfigs/setup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "setupDto",
+        "Type": "DoAnFlutterAPI.DTOs.TabletConfigCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAnFlutterAPI.DTOs.ApiResponse\u00601[[DoAnFlutterAPI.DTOs.TabletConfigDto, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAnFlutterAPI.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[DoAnFlutterAPI.WeatherForecast, DoAnFlutterAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

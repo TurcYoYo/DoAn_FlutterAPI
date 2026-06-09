@@ -1,0 +1,315 @@
+@DoAnFlutterAPI_HostAddress = http://localhost:5049
+
+### Categories
+GET {{DoAnFlutterAPI_HostAddress}}/api/categories
+Accept: application/json
+
+### Get Category By ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/categories/1
+Accept: application/json
+
+### Create Category
+POST {{DoAnFlutterAPI_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Coffee",
+  "iconUrl": "https://example.com/icons/coffee.png"
+}
+
+### Update Category
+PUT {{DoAnFlutterAPI_HostAddress}}/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "Updated Coffee",
+  "iconUrl": "https://example.com/icons/coffee_updated.png"
+}
+
+### Delete Category (Soft Delete)
+DELETE {{DoAnFlutterAPI_HostAddress}}/api/categories/1
+
+
+### Menu Items
+GET {{DoAnFlutterAPI_HostAddress}}/api/menuitems
+Accept: application/json
+
+### Get Menu Items By Category
+GET {{DoAnFlutterAPI_HostAddress}}/api/menuitems/category/1
+Accept: application/json
+
+### Get Menu Item By ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/menuitems/1
+Accept: application/json
+
+### Create Menu Item
+POST {{DoAnFlutterAPI_HostAddress}}/api/menuitems
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "name": "Espresso",
+  "description": "Strong black coffee",
+  "price": 2.50,
+  "imageUrl": "https://example.com/images/espresso.png",
+  "isAvailable": true,
+  "stockQty": 100,
+  "sortOrder": 1
+}
+
+### Update Menu Item
+PUT {{DoAnFlutterAPI_HostAddress}}/api/menuitems/1
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "name": "Espresso Updated",
+  "description": "Premium strong black coffee",
+  "price": 3.00,
+  "imageUrl": "https://example.com/images/espresso_premium.png",
+  "isAvailable": true,
+  "stockQty": 150,
+  "sortOrder": 1
+}
+
+### Delete Menu Item (Soft Delete)
+DELETE {{DoAnFlutterAPI_HostAddress}}/api/menuitems/1
+
+
+### Tables
+GET {{DoAnFlutterAPI_HostAddress}}/api/tables
+Accept: application/json
+
+### Get Table By ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/tables/1
+Accept: application/json
+
+### Create Table
+POST {{DoAnFlutterAPI_HostAddress}}/api/tables
+Content-Type: application/json
+
+{
+  "tableCode": "T05",
+  "tableName": "Table 5",
+  "floor": 1,
+  "capacity": 4,
+  "isActive": true
+}
+
+### Update Table
+PUT {{DoAnFlutterAPI_HostAddress}}/api/tables/1
+Content-Type: application/json
+
+{
+  "tableCode": "T01-Updated",
+  "tableName": "Table 1 VIP",
+  "floor": 1,
+  "capacity": 2,
+  "isActive": true
+}
+
+
+### Table Sessions
+### Open Session
+POST {{DoAnFlutterAPI_HostAddress}}/api/tablesessions/open
+Content-Type: application/json
+
+{
+  "tableId": 1
+}
+
+### Close Session
+POST {{DoAnFlutterAPI_HostAddress}}/api/tablesessions/close/1
+
+
+### Orders
+### Get Orders By Session
+GET {{DoAnFlutterAPI_HostAddress}}/api/orders/session/1
+Accept: application/json
+
+### Get Order By ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/orders/1
+Accept: application/json
+
+### Create Order
+POST {{DoAnFlutterAPI_HostAddress}}/api/orders
+Content-Type: application/json
+
+{
+  "sessionId": 1,
+  "tableId": 1,
+  "tableCode": "T01",
+  "note": "Less sugar",
+  "items": [
+    {
+      "menuItemId": 1,
+      "quantity": 2,
+      "note": "Hot"
+    }
+  ]
+}
+
+
+### Kitchen
+### Get Kitchen Queue
+GET {{DoAnFlutterAPI_HostAddress}}/api/kitchen/queue
+Accept: application/json
+
+### Update Kitchen Item Status
+PUT {{DoAnFlutterAPI_HostAddress}}/api/kitchen/status/1
+Content-Type: application/json
+
+"preparing"
+
+
+### Ingredients
+### Get All Ingredients
+GET {{DoAnFlutterAPI_HostAddress}}/api/ingredients
+Accept: application/json
+
+### Get Low Stock Ingredients
+GET {{DoAnFlutterAPI_HostAddress}}/api/ingredients/low-stock
+Accept: application/json
+
+
+### Stock Transactions
+### Create Stock Transaction (In)
+POST {{DoAnFlutterAPI_HostAddress}}/api/stock/transaction
+Content-Type: application/json
+
+{
+  "ingredientId": 1,
+  "transType": "in",
+  "amount": 10.5,
+  "reason": "Restock from supplier"
+}
+
+### Create Stock Transaction (Out)
+POST {{DoAnFlutterAPI_HostAddress}}/api/stock/transaction
+Content-Type: application/json
+
+{
+  "ingredientId": 1,
+  "transType": "out",
+  "amount": 2.0,
+  "reason": "Wasted"
+}
+
+
+### Payments
+### Create Payment
+POST {{DoAnFlutterAPI_HostAddress}}/api/payments
+Content-Type: application/json
+
+{
+  "orderId": 1,
+  "amount": 5.0,
+  "method": "cash",
+  "status": "success"
+}
+
+
+### Reports
+### Get Daily Revenue
+GET {{DoAnFlutterAPI_HostAddress}}/api/reports/revenue/daily
+Accept: application/json
+
+### Get Monthly Revenue
+GET {{DoAnFlutterAPI_HostAddress}}/api/reports/revenue/monthly
+Accept: application/json
+
+
+### Admins
+### Get All Admins
+GET {{DoAnFlutterAPI_HostAddress}}/api/admins
+Accept: application/json
+
+### Get Admin By ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/admins/1
+Accept: application/json
+
+### Admin Login
+POST {{DoAnFlutterAPI_HostAddress}}/api/admins/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password123"
+}
+
+### Create Admin
+POST {{DoAnFlutterAPI_HostAddress}}/api/admins
+Content-Type: application/json
+
+{
+  "username": "staff1",
+  "password": "staffpassword",
+  "fullName": "Staff Member 1",
+  "isActive": true
+}
+
+### Update Admin
+PUT {{DoAnFlutterAPI_HostAddress}}/api/admins/1
+Content-Type: application/json
+
+{
+  "fullName": "Super Admin",
+  "isActive": true,
+  "password": "newpassword123"
+}
+
+### Delete Admin
+DELETE {{DoAnFlutterAPI_HostAddress}}/api/admins/2
+
+
+### Tablet Configs
+### Get All Tablet Configs
+GET {{DoAnFlutterAPI_HostAddress}}/api/tabletconfigs
+Accept: application/json
+
+### Get Tablet Config By Device ID
+GET {{DoAnFlutterAPI_HostAddress}}/api/tabletconfigs/device/tablet-001
+Accept: application/json
+
+### Setup Tablet Device
+POST {{DoAnFlutterAPI_HostAddress}}/api/tabletconfigs/setup
+Content-Type: application/json
+
+{
+  "deviceId": "tablet-001",
+  "role": "table",
+  "tableId": 1
+}
+
+
+### Item Ingredients
+### Get Ingredients By Menu Item
+GET {{DoAnFlutterAPI_HostAddress}}/api/itemingredients/menuitem/1
+Accept: application/json
+
+### Add/Update Item Ingredient
+POST {{DoAnFlutterAPI_HostAddress}}/api/itemingredients
+Content-Type: application/json
+
+{
+  "menuItemId": 1,
+  "ingredientId": 1,
+  "amountPerServing": 0.5
+}
+
+
+### Print Logs
+### Get Print Logs By Order
+GET {{DoAnFlutterAPI_HostAddress}}/api/printlogs/order/1
+Accept: application/json
+
+### Create Print Log
+POST {{DoAnFlutterAPI_HostAddress}}/api/printlogs
+Content-Type: application/json
+
+{
+  "orderId": 1,
+  "printerIp": "192.168.1.100",
+  "success": true,
+  "errorMsg": null
+}

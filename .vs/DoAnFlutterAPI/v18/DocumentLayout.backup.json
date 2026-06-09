@@ -1,0 +1,441 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\doanflutterapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\doanflutterapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\doanflutterapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\doanflutterapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\sql.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\sql.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\vwrevenuethismonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\vwrevenuethismonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\vwtablestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\vwtablestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\vwmenuwithstock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\vwmenuwithstock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\vwlowstockingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\vwlowstockingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\tabletconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\tabletconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\vwkitchenqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\vwkitchenqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\menudtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\menudtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\inventorydtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\inventorydtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\admindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\admindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\dtos\\floordtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\dtos\\floordtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\controllers\\adminscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\controllers\\adminscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\doanflutterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\doanflutterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\controllers\\menuitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\controllers\\menuitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|c:\\users\\lance\\downloads\\compressed\\doan_flutter\\doanflutterapi\\doanflutterapi\\entities\\cafedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F053DA73-70FC-4099-A2EA-BCE5FDA7C9D3}|DoAnFlutterAPI\\DoAnFlutterAPI.csproj|solutionrelative:doanflutterapi\\entities\\cafedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DoAnFlutterAPI",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "RelativeToolTip": "DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-30T06:16:43.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "DoAnFlutterAPI\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwBUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-30T05:05:45.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\appsettings.json",
+              "RelativeToolTip": "DoAnFlutterAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-30T05:05:45.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "VwKitchenQueue.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwKitchenQueue.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\VwKitchenQueue.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwKitchenQueue.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\VwKitchenQueue.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.463Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "OrderDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\OrderDtos.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\OrderDtos.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\OrderDtos.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\OrderDtos.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAgwAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MenuDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\MenuDtos.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\MenuDtos.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\MenuDtos.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\MenuDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AdminDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\AdminDtos.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\AdminDtos.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\AdminDtos.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\AdminDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\appsettings.Development.json",
+              "RelativeToolTip": "DoAnFlutterAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-30T05:05:45.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DoAnFlutterAPI.http",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.http",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DoAnFlutterAPI.http",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.http",
+              "RelativeToolTip": "DoAnFlutterAPI\\DoAnFlutterAPI.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-05-30T05:08:29.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "VwRevenueThisMonth.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwRevenueThisMonth.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\VwRevenueThisMonth.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwRevenueThisMonth.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\VwRevenueThisMonth.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.461Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Program.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Program.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Sql.txt",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\Sql.txt",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\Sql.txt",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\Sql.txt",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\Sql.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-05-30T05:08:19.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAwwBMAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TabletConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\TabletConfig.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\TabletConfig.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\TabletConfig.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\TabletConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.458Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "VwLowStockIngredient.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwLowStockIngredient.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\VwLowStockIngredient.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwLowStockIngredient.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\VwLowStockIngredient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.455Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VwMenuWithStock.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwMenuWithStock.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\VwMenuWithStock.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwMenuWithStock.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\VwMenuWithStock.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "VwTableStatus.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwTableStatus.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\VwTableStatus.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\VwTableStatus.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\VwTableStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "BaseResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\BaseResponse.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\BaseResponse.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\BaseResponse.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\BaseResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "FloorDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\FloorDtos.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\FloorDtos.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\FloorDtos.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\FloorDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InventoryDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\InventoryDtos.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DTOs\\InventoryDtos.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DTOs\\InventoryDtos.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\DTOs\\InventoryDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AdminsController.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\AdminsController.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Controllers\\AdminsController.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\AdminsController.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Controllers\\AdminsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.479Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "DoAnFlutterAPI.csproj",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "RelativeToolTip": "DoAnFlutterAPI\\DoAnFlutterAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-30T05:05:45.483Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "MenuItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\MenuItemsController.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Controllers\\MenuItemsController.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Controllers\\MenuItemsController.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Controllers\\MenuItemsController.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CafeDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\CafeDbContext.cs",
+              "RelativeDocumentMoniker": "DoAnFlutterAPI\\Entities\\CafeDbContext.cs",
+              "ToolTip": "C:\\Users\\Lance\\Downloads\\Compressed\\DoAn_Flutter\\DoAnFlutterAPI\\DoAnFlutterAPI\\Entities\\CafeDbContext.cs",
+              "RelativeToolTip": "DoAnFlutterAPI\\Entities\\CafeDbContext.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAIwEQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:05:45.528Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
